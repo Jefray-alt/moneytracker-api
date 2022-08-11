@@ -47,7 +47,7 @@ export async function loginUser(user: { email: string, password: string; }) {
 
   existingUser.refreshToken = refreshToken;
   await existingUser.save();
-  return { accessToken, refreshToken };
+  return { email: existingUser.email, accessToken, refreshToken };
 }
 
 export async function logoutUser(id: string) {
