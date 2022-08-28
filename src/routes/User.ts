@@ -22,6 +22,8 @@ router.post(
 
       res.cookie('jwt', user.refreshToken, {
         httpOnly: true,
+        sameSite: 'none',
+        secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
       return res.json(user).status(201);
@@ -39,6 +41,8 @@ router.post(
       const loggedInUser = await loginUser({ email, password });
       res.cookie('jwt', loggedInUser.refreshToken, {
         httpOnly: true,
+        sameSite: 'none',
+        secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
       return res.json(loggedInUser).status(201);

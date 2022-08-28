@@ -12,11 +12,16 @@ const app: Application = express();
 
 config();
 connectDb();
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://127.0.0.1:5173', 'http://localhost:5173'],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.get('/', (req: Request, res: Response,) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hellso!');
 });
 app.use('/api', routes);
@@ -24,8 +29,6 @@ app.use('/api', routes);
 //Middleware
 app.use(notFound);
 app.use(errorHandler);
-
-
 
 const PORT = parseInt(process.env.API_PORT as string);
 app.listen(PORT, () => {
