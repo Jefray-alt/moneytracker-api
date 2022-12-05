@@ -11,6 +11,7 @@ export interface IWallet {
   name: string;
   userId: string;
   currency: string;
+  value: number;
   transactions: Array<ITransaction>;
   createdAt?: string;
   updatedAt?: string;

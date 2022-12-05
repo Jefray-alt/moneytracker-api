@@ -16,6 +16,10 @@ const WalletSchema = new Schema<IWallet>(
       type: String,
       default: '$',
     },
+    value: {
+      type: Number,
+      required: true,
+    },
     transactions: [Transaction.schema],
     enabled: {
       type: Boolean,
