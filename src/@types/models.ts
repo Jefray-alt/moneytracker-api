@@ -10,6 +10,7 @@ export interface IWallet {
   id: string;
   name: string;
   userId: string;
+  currency: string;
   transactions: Array<ITransaction>;
   createdAt?: string;
   updatedAt?: string;
