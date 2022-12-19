@@ -4,23 +4,24 @@ import Transaction from '../models/Transaction';
 import Wallet from '../models/Wallet';
 
 export async function getTransaction(transactionId: string, userId: string) {
-
   const wallet = await Wallet.findOne(
-    { 'transaction._id': transactionId }, function (err: CallbackError, wallet: Array<IWallet>) {
-      wallet.filter((wallet) => {
-        return wallet.userId === userId;
-      });
-    });
+    { userId },
+    { 'transactions._id': transactionId }
+  );
 
-  if (wallet && wallet.transactions.length !== 0) {
-    return wallet?.transactions[0];
+  if (wallet?.transactions[0]) {
+    return wallet;
   }
 
   throw new Error('Transaction not found!');
 }
 
-export async function addTransaction(transaction: ITransaction, userId: string, walletId: string) {
-  const wallet = await Wallet.findOne({ '_id': walletId, userId });
+export async function addTransaction(
+  transaction: ITransaction,
+  userId: string,
+  walletId: string
+) {
+  const wallet = await Wallet.findOne({ _id: walletId, userId });
 
   if (wallet) {
     const createdTransaction = new Transaction(transaction);
